@@ -15,7 +15,7 @@ export function useComponentConfig<
     const propCss = new Set<string>();
     const optionEntries = Object.entries(config.$options)
     const optionAlias = Object.entries(config.$alias || [])
-    const forwardProps = {} as React.PropsWithChildren<A>
+    const forwardProps = {} as unknown as React.PropsWithChildren<A>
 
     // load base
     parseDefinition(true, config.$base).forEach(s => propCss.add(s))
