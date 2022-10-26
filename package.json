@@ -14,8 +14,7 @@
     "test": "jest",
     "test:coverage": "jest --collectCoverage",
     "clean": "rimraf dist",
-    "build": "npm run clean && rollup -c",
-    "ci": "npm run lint && npm run test:coverage && npm run build"
+    "build": "npm run clean && rollup -c"
   },
   "peerDependencies": {
     "react": "^17.0.0",
