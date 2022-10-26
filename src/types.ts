@@ -23,7 +23,7 @@ export type FragmentMixer = {
 export interface FragmentConfig<T extends CustomAttributes, A = {}> {
   $base: FragmentClass;
   $options: ExcludeFromHTMLElement<FragmentOptions<T>, A>;
-  $mix?: Array<FragmentMixer>;
+  $mix?: FragmentMixer[];
   $alias?: Record<string, string>;
   // $mix?: Array<{
   //   props: string[];

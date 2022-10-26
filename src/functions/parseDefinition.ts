@@ -14,7 +14,7 @@ export function parseDefinition(propValue: CustomAttributeValue, propDefinition:
 
     return parseDefinition(true, propDefinition(propValue), prefix)
 
-  } else if (propDefinition.toString() === "[object Object]") {//  prop: {key: value?} 
+  } else if (propDefinition.toString() === "[object Object]") {//  prop: {key: value?}
 
     // test if propValue exists in propDefinition
     const maybeObj = propDefinition?.[("" + propValue)]
@@ -29,4 +29,4 @@ export function parseDefinition(propValue: CustomAttributeValue, propDefinition:
   }
 
   return []
-}  
+}

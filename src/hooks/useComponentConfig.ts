@@ -16,9 +16,9 @@ export function useComponentConfig<
     const optionEntries = Object.entries(config.$options)
     const optionAlias = Object.entries(config.$alias || [])
     const forwardProps = {} as React.PropsWithChildren<A>
+
     // load base
-    const __base: string[] = parseDefinition(true, config.$base);
-    __base.forEach(s => propCss.add(s))
+    parseDefinition(true, config.$base).forEach(s => propCss.add(s))
 
     // load props
     for (const [key, propValue] of Object.entries(props)) {
@@ -35,8 +35,10 @@ export function useComponentConfig<
       if (entry) {
         const [entryKey, entryValue] = entry;
         if (propValue && entryValue) {
-          const __css = parseDefinition(entryKey.startsWith("$$") ? true : propValue, entryValue)
-          __css.forEach(s => propCss.add(s))
+          parseDefinition(
+            entryKey.startsWith("$$") ? true : propValue,
+            entryValue
+          ).forEach(s => propCss.add(s))
           propOptions.push(`${key}.${propValue}`)
         } else if (propValue === true) {
           // consider option turned on even if it doesn't result in new classes being added
@@ -61,7 +63,7 @@ export function useComponentConfig<
 
     // merge with overwrite classname
     const className: string = [
-      ...propCss,
+      ...Array.from(propCss),
       props.className ?? ""
     ].join(" ");
 
