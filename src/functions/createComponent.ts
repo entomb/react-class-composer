@@ -1,6 +1,7 @@
 import React, { forwardRef, AllHTMLAttributes, HTMLAttributes } from "react"
-import { useComponentConfig } from "../hooks/useComponentConfig";
-import { CustomAttributes, FragmentConfig } from "../types"
+import { useComponentConfig } from "../hooks/useClassComposer";
+import { ComposedComponent, CustomAttributes, ComposerConfig } from "../types"
+
 
 
 export function createComponent<
@@ -8,14 +9,14 @@ export function createComponent<
   EL extends HTMLElement,
   A extends HTMLAttributes<EL> = AllHTMLAttributes<EL>
 >(
-  Element: React.ElementType,
-  config: FragmentConfig<P, A>,
+  el: React.ElementType,
+  config: ComposerConfig<P, A>,
   defaults: Partial<P> = {}
-): React.ForwardRefExoticComponent<React.PropsWithoutRef<P & A> & React.RefAttributes<EL>> {
+): ComposedComponent<P, EL, A> {
 
   return forwardRef<EL, P & A>((innerProps, ref) => {
     const { className, forwardProps } = useComponentConfig<P, A>({ config, props: { ...defaults, ...innerProps } });
 
-    return React.createElement(Element, { ref, ...forwardProps, className }, innerProps.children)
+    return React.createElement(el, { ref, ...forwardProps, className }, innerProps.children)
   })
 }

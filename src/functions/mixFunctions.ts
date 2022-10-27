@@ -1,4 +1,4 @@
-import { FragmentDefinition, FragmentMixerFactory, FragmentMixerFn } from "../types"
+import { ClassDefinitionObject, ClassMixerFactory, ClassMixerFn } from "../types"
 import { parseDefinition } from "./parseDefinition"
 
 
@@ -16,9 +16,9 @@ export const shouldMix = (when: string[], optionArr: string[]): boolean => {
   })
 }
 
-export const mixFunction: FragmentMixerFactory<FragmentMixerFn> = (when, run) => ({ when, run })
+export const mixFunction: ClassMixerFactory<ClassMixerFn> = (when, run) => ({ when, run })
 
-export const mixAddClass: FragmentMixerFactory<FragmentDefinition> = (when, arg) => {
+export const mixAddClass: ClassMixerFactory<ClassDefinitionObject> = (when, arg) => {
   return {
     when,
     run: (css) => {
@@ -28,7 +28,7 @@ export const mixAddClass: FragmentMixerFactory<FragmentDefinition> = (when, arg)
   }
 }
 
-export const mixRemoveClass: FragmentMixerFactory<FragmentDefinition> = (when, arg) => {
+export const mixRemoveClass: ClassMixerFactory<ClassDefinitionObject> = (when, arg) => {
   return {
     when,
     run: (css) => {

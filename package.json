@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest",
-    "test:coverage": "jest --collectCoverage",
+    "test:coverage": "jest --collectCoverage --verbose",
     "clean": "rimraf dist",
     "build": "npm run clean && rollup -c"
   },

@@ -1,12 +1,12 @@
 import { parseDefinition } from '../src/functions/parseDefinition';
-import { FragmentOptions } from '../src/types';
+import { ComposerConfigOptions } from '../src/types';
 
 type TestProps = {
   simple: boolean;
   size: 'small' | 'medium' | 'large';
 }
 
-const definitions: FragmentOptions<TestProps> = {
+const definitions: ComposerConfigOptions<TestProps> = {
   simple: "css-simple-toggle",
   simpleArr: ["css1", "css2", "css3"],
   simpleDeepArr: [

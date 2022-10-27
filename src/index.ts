@@ -5,4 +5,4 @@ export * from './functions/createComponent'
 export * from './functions/parseDefinition'
 export * from './functions/mixFunctions'
 // Hooks
-export * from './hooks/useComponentConfig'
+export * from './hooks/useClassComposer'

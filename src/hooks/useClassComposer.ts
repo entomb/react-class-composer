@@ -1,14 +1,14 @@
 import { HTMLAttributes, useMemo } from "react";
 import { shouldMix } from "../functions/mixFunctions";
 import { parseDefinition } from "../functions/parseDefinition";
-import { ComponentConfigHookProps, ComponentConfigHookReturns, CustomAttributes } from "../types";
+import { ClassComposerOptions, ComponentConfigHookReturns, CustomAttributes } from "../types";
 
 
 
 export function useComponentConfig<
   P extends CustomAttributes,
   A extends HTMLAttributes<any>
->({ config, props }: ComponentConfigHookProps<P, A>): ComponentConfigHookReturns<A> {
+>({ config, props }: ClassComposerOptions<P, A>): ComponentConfigHookReturns<A> {
   return useMemo(() => {
     // useMemo does nothing here, this should be an external hook with memoized return values
     const propOptions: string[] = []
