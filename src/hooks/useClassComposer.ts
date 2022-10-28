@@ -1,14 +1,14 @@
 import { HTMLAttributes, useMemo } from "react";
 import { shouldMix } from "../functions/mixFunctions";
 import { parseDefinition } from "../functions/parseDefinition";
-import { ClassComposerOptions, ComponentConfigHookReturns, CustomAttributes } from "../types";
+import { ClassComposerOptions, ClassComposerReturns, CustomAttributes } from "../types";
 
 
 
-export function useComponentConfig<
+export function useClassComposer<
   P extends CustomAttributes,
   A extends HTMLAttributes<any>
->({ config, props }: ClassComposerOptions<P, A>): ComponentConfigHookReturns<A> {
+>({ config, props }: ClassComposerOptions<P, A>): ClassComposerReturns<A> {
   return useMemo(() => {
     // useMemo does nothing here, this should be an external hook with memoized return values
     const propOptions: string[] = []
@@ -61,11 +61,12 @@ export function useComponentConfig<
       }
     }
 
+    if (props.className) {
+      props.className.split(" ").forEach(s => propCss.add(s))
+    }
+
     // merge with overwrite classname
-    const className: string = [
-      ...Array.from(propCss),
-      props.className ?? ""
-    ].join(" ");
+    const className: string = Array.from(propCss).join(" ");
 
     return {
       forwardProps,

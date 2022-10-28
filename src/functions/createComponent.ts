@@ -1,8 +1,6 @@
 import React, { forwardRef, AllHTMLAttributes, HTMLAttributes } from "react"
-import { useComponentConfig } from "../hooks/useClassComposer";
+import { useClassComposer } from "../hooks/useClassComposer";
 import { ComposedComponent, CustomAttributes, ComposerConfig } from "../types"
-
-
 
 export function createComponent<
   P extends CustomAttributes,
@@ -15,7 +13,7 @@ export function createComponent<
 ): ComposedComponent<P, EL, A> {
 
   return forwardRef<EL, P & A>((innerProps, ref) => {
-    const { className, forwardProps } = useComponentConfig<P, A>({ config, props: { ...defaults, ...innerProps } });
+    const { className, forwardProps } = useClassComposer<P, A>({ config, props: { ...defaults, ...innerProps } });
 
     return React.createElement(el, { ref, ...forwardProps, className }, innerProps.children)
   })

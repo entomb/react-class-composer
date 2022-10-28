@@ -1,6 +1,6 @@
 import { AllHTMLAttributes, ForwardRefExoticComponent, HTMLAttributes, PropsWithoutRef, RefAttributes } from "react";
 
-export type CustomAttributeValue = string | number | boolean | undefined
+export type CustomAttributeValue = string | number | boolean
 export type CustomAttributes = Record<string, CustomAttributeValue>
 
 export type ExcludeFromHTMLElement<S, T> = S & { [K in keyof T]?: never }
@@ -36,7 +36,7 @@ export interface ClassComposerOptions<P extends CustomAttributes, A extends HTML
   props: React.PropsWithChildren<P & A>
 }
 
-export interface ComponentConfigHookReturns<A extends HTMLAttributes<any>> {
+export interface ClassComposerReturns<A extends HTMLAttributes<any>> {
   className: string;
   forwardProps: React.PropsWithChildren<A>
 }
