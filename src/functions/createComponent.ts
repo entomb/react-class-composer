@@ -1,4 +1,4 @@
-import React, { forwardRef, AllHTMLAttributes, HTMLAttributes } from "react"
+import React, { forwardRef, AllHTMLAttributes, HTMLAttributes, ElementType } from "react"
 import { useClassComposer } from "../hooks/useClassComposer";
 import { ComposedComponent, CustomAttributes, ComposerConfig } from "../types"
 
@@ -7,7 +7,7 @@ export function createComponent<
   EL extends HTMLElement,
   A extends HTMLAttributes<EL> = AllHTMLAttributes<EL>
 >(
-  el: React.ElementType,
+  el: ElementType,
   config: ComposerConfig<P, A>,
   defaults: Partial<P> = {}
 ): ComposedComponent<P, EL, A> {
