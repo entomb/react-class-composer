@@ -1,21 +1,20 @@
-import { HTMLAttributes, PropsWithChildren, useMemo } from "react";
+import { HTMLAttributes, useMemo } from "react";
 import { shouldMix } from "../functions/mixFunctions";
 import { parseDefinition } from "../functions/parseDefinition";
-import { ClassComposerReturns, ComposerConfig, CustomAttributes } from "../types";
-
+import { ClassComposerReturns, ComposerConfig, ComponentAttributes } from "../types";
 
 
 export function useClassComposer<
-  P extends CustomAttributes,
+  P extends ComponentAttributes,
   A extends HTMLAttributes<any> = HTMLAttributes<any>
->(config: ComposerConfig<P, A>, props: PropsWithChildren<P & A>): ClassComposerReturns<A> {
+>(config: ComposerConfig<P, A>, props: P & A): ClassComposerReturns<A> {
   return useMemo(() => {
     // useMemo does nothing here, this should be an external hook with memoized return values
     const propOptions: string[] = []
     const propCss = new Set<string>();
     const optionEntries = Object.entries(config.options)
     const optionAlias = Object.entries(config.alias || [])
-    const forwardProps = {} as unknown as React.PropsWithChildren<A>
+    const forwardProps = {} as A
 
     // load base
     parseDefinition(true, config.base).forEach(s => propCss.add(s))

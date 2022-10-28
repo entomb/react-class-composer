@@ -6,9 +6,9 @@ interface Props {
   something: React.ReactNode
 }
 
-export const YourComponent: React.FC<Props> = (props) => {
+export const Component: React.FC<Props> = (props) => {
 
-  const { className } = useClassComposer<Pick<Props, 'size'>>({
+  const { className } = useClassComposer<Props>({
     base: 'base-class',
     options: {
       size: {
