@@ -80,7 +80,7 @@ export const YourComponent: React.FC<Props> = (props) => {
 ```
 
 # Full Example 
-[view file](test/Example/Button.tsx)
+([view Button.tsx](test/Example/Button.tsx)) ([view Tests](test/createComponent.test.tsx))
 
 ```tsx
 import { ButtonHTMLAttributes } from "react";
