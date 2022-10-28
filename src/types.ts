@@ -1,7 +1,7 @@
 import { AllHTMLAttributes, ForwardRefExoticComponent, HTMLAttributes, PropsWithoutRef, RefAttributes, PropsWithChildren } from "react";
 
 export type CustomAttributeValue = string | number | boolean
-export type CustomAttributes = Record<string, CustomAttributeValue>
+export type CustomAttributes = Record<string, CustomAttributeValue | undefined>
 
 export type ExcludeFromHTMLElement<S, T> = S & { [K in keyof T]?: never }
 
