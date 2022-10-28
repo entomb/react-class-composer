@@ -23,3 +23,9 @@ jobs:
     - run: npm run lint
     - run: npm run build
     - run: npm run test:coverage
+    - name: Coverage check 
+      uses: devmasx/coverage-check-action@v1.2.0
+      with:
+        type: lcov
+        min_coverage: 90
+        result_path: coverage/coverage-final.json
