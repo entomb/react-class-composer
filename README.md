@@ -141,7 +141,8 @@ export const Button = createComponent<
      * Alias: prop shortcuts for other options
      */
     alias: {
-      v: "variant", // v="outline" is interpreted as variant="outline"
+      // v="outline" is interpreted as variant="outline"
+      v: "variant",
       round: "rounded",
     },
     /**
@@ -149,41 +150,50 @@ export const Button = createComponent<
      */
     options: {
       size: {
-        // the value of the prop
-        tiny: "padding-tiny margin-tiny", // you can use string
+        // you can use string
+        tiny: "padding-tiny margin-tiny",
+        // or any combination of string[]
         small: [
           "padding-medium",
           "margin-medium",
           ["text-medium", "font-something"],
-        ], // or any combination of string[]
-        medium: () => `medium-stuff class-returned-by-function`, // also suports () => string
+        ],
+        // also suports () => string
+        medium: () => `medium-stuff class-returned-by-function`,
+        // any object key will be parsed as "prefixed" class name
         large: {
           large: ["text", "font", "padding"],
           key: { abc: ["a", "b", "c"], num: ["n1", "n2", "n3"] },
-        }, // any object key will be parsed as "prefixed" class name
+        },
       },
+
+      // use $ as a prefix to mark a prop as "native" (comes from the native HTML element we are extending)
       $type: {
-        // use $ as a prefix to mark a prop as "native" (comes from the native HTML element we are extending)
         submit: "btn-submit",
       },
+
       variant: {
         none: "",
         outline: "bg-white-500 text-black border border-gray-400",
         filled: "bg-teal-200 text-white",
       },
+
       anotherOption: {
         on: "option-on",
         off: "options-off",
       },
+
+      // dynamic options via function
       dynamicOptions: (value) => {
-        // dynamic options via function
         if (value < 50) return "less-than-50";
         if (value > 50) return "more-than-50";
         return ["value-is-50", "dynamic-options-50"];
       },
       rounded: "rounded-2xl",
-      $disabled: "btn-disabled", // use $ as a prefix to mark a prop as "native" (comes from the native HTML element we are extending)
-      $$title: "btn-has-title", // use $$ as a prefix to apply classes if a prop is present, ignoring what value it has
+      // use $ as a prefix to mark a prop as "native" (comes from the native HTML element we are extending)
+      $disabled: "btn-disabled",
+      // use $$ as a prefix to apply classes if a prop is present, ignoring what value it has
+      $$title: "btn-has-title",
       "data-something": {
         // we can also target data-attributes:
         a: "something-a",
