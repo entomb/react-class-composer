@@ -79,7 +79,72 @@ export const YourComponent: React.FC<Props> = (props) => {
 };
 ```
 
-# Full Example 
+# the `@ClassDefinition` type
+
+```ts
+export type ClassDefinition = string
+| (value) => ClassDefinition
+| { [pseudo: string]: ClassDefinition }
+| ClassDefinition[];
+```
+
+anytime you can define a class, you can use any combination of the following values:
+
+### `String`
+
+```js
+  options: {
+      prop: {
+        a: "simple",
+        b: "multiple classes in the same string" // will be .split(" ") before parsing
+      }
+  }
+```
+
+### `Array`
+
+any array of `@ClassDefinition` values will be flattened and parsed.
+
+```js
+  options: {
+      prop: {
+        a: ["simple", "array"],
+        b: ["multi", ["level", "array"]],
+        c: [() => "string", {obj: "string"}]
+      }
+  }
+```
+
+### `Functions`
+
+you can use functions to generate dynamic classnames. functions can return any valid `@ClassDefinition` excluding function
+
+```js
+  options: {
+      prop: {
+        a: () => "some-class-name"
+      },
+      anoterProp: (value) => `prop${value}`
+  }
+```
+
+### `Objects`
+
+any object beyond the first level (used to parse prop values) will be exploded into prefixed classes like `key:value`. all keys need to be string, but the value can be any `@ClassDefinition`
+
+```js
+  options: {
+      prop: {
+        a: "a-value", // will apply `a-value` if <... prop="a" />
+        b: "b-value" // will apply `b-value` if <... prop="b" />
+        c: {hover: 'color-red'}// will apply `hover:color-red` if <... prop="c" />
+      },
+
+  }
+```
+
+# Full Example
+
 ([view Button.tsx](test/Example/Button.tsx)) ([view Tests](test/createComponent.test.tsx))
 
 ```tsx
