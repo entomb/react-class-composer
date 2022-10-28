@@ -28,8 +28,7 @@ export interface ComposerConfig<T extends CustomAttributes, A = {}> {
   alias?: ClassDefinitionAlias<T>
 }
 
-/**
- *   
+/*   
 export interface ClassComposerOptions<P extends CustomAttributes, A extends HTMLAttributes<any>> {
   config: ComposerConfig<P, A>,
   props: PropsWithChildren<P & A>
