@@ -14,23 +14,23 @@ type ButtonProps = {
 }>
 
 export const Button = createComponent<ButtonProps, HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>("button", {
-  $base: [
+  base: [
     "btn",
     { hover: ['btn-hover', 'text-bold'] },
     () => "btn-base"
   ],
-  $mix: [
+  mix: [
     mixAddClass(['size.tiny', 'variant.outline'], 'size-tiny-outline-mix'),
     mixRemoveClass(['size.tiny', 'variant.filled'], ['btn-base', { hover: 'btn-hover' }, 'hover:text-bold']),
     mixRemoveClass(['data-something.a'], ['btn-base']),
     mixFunction(['anotherOption.*', 'disabled.true'], (css) => css.add("any-anotherOptions-disabled-true")),
     { when: ['type.reset'], run: (css) => css.add("btn-reset") }
   ],
-  $alias: {
+  alias: {
     v: "variant",
     round: "rounded"
   },
-  $options: {
+  options: {
     size: {
       tiny: 'padding-tiny margin-tiny',
       small: ['padding-medium', 'margin-medium', ['text-medium', 'font-something']],

@@ -13,7 +13,7 @@ export function createComponent<
 ): ComposedComponent<P, EL, A> {
 
   return forwardRef<EL, P & A>((innerProps, ref) => {
-    const { className, forwardProps } = useClassComposer<P, A>({ config, props: { ...defaults, ...innerProps } });
+    const { className, forwardProps } = useClassComposer<P, A>(config, { ...defaults, ...innerProps });
 
     return React.createElement(el, { ref, ...forwardProps, className }, innerProps.children)
   })

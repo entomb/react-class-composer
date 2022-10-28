@@ -6,8 +6,8 @@ type BoxProps = {
 }
 
 export const Box = createComponent<BoxProps, HTMLDivElement, HTMLAttributes<HTMLDivElement>>("div", {
-  $base: "box-base",
-  $options: {
+  base: "box-base",
+  options: {
     display: {
       flex: 'display-flex',
       block: 'display-block',

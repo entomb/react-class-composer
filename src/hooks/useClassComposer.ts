@@ -1,24 +1,24 @@
-import { HTMLAttributes, useMemo } from "react";
+import { HTMLAttributes, PropsWithChildren, useMemo } from "react";
 import { shouldMix } from "../functions/mixFunctions";
 import { parseDefinition } from "../functions/parseDefinition";
-import { ClassComposerOptions, ClassComposerReturns, CustomAttributes } from "../types";
+import { ClassComposerReturns, ComposerConfig, CustomAttributes } from "../types";
 
 
 
 export function useClassComposer<
   P extends CustomAttributes,
-  A extends HTMLAttributes<any>
->({ config, props }: ClassComposerOptions<P, A>): ClassComposerReturns<A> {
+  A extends HTMLAttributes<any> = HTMLAttributes<any>
+>(config: ComposerConfig<P, A>, props: PropsWithChildren<P & A>): ClassComposerReturns<A> {
   return useMemo(() => {
     // useMemo does nothing here, this should be an external hook with memoized return values
     const propOptions: string[] = []
     const propCss = new Set<string>();
-    const optionEntries = Object.entries(config.$options)
-    const optionAlias = Object.entries(config.$alias || [])
+    const optionEntries = Object.entries(config.options)
+    const optionAlias = Object.entries(config.alias || [])
     const forwardProps = {} as unknown as React.PropsWithChildren<A>
 
     // load base
-    parseDefinition(true, config.$base).forEach(s => propCss.add(s))
+    parseDefinition(true, config.base).forEach(s => propCss.add(s))
 
     // load props
     for (const [key, propValue] of Object.entries(props)) {
@@ -55,7 +55,7 @@ export function useClassComposer<
       }
     }
 
-    for (const mixer of config.$mix || []) {
+    for (const mixer of config.mix || []) {
       if (shouldMix(mixer.when, propOptions)) {
         mixer.run(propCss)
       }

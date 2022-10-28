@@ -1,7 +1,7 @@
 import { AllHTMLAttributes, ForwardRefExoticComponent, HTMLAttributes, PropsWithoutRef, RefAttributes, PropsWithChildren } from "react";
 
 export type CustomAttributeValue = string | number | boolean
-export type CustomAttributes = Record<string, CustomAttributeValue | undefined>
+export type CustomAttributes = { [k: string]: CustomAttributeValue | undefined }
 
 export type ExcludeFromHTMLElement<S, T> = S & { [K in keyof T]?: never }
 
@@ -22,20 +22,19 @@ export type ClassMixer = {
 }
 
 export interface ComposerConfig<T extends CustomAttributes, A = {}> {
-  $base: ClassDefinition;
-  $options: ExcludeFromHTMLElement<ComposerConfigOptions<T>, A>;
-  $mix?: ClassMixer[];
-  $alias?: ClassDefinitionAlias<T>
+  base: ClassDefinition;
+  options: ExcludeFromHTMLElement<ComposerConfigOptions<T>, A>;
+  mix?: ClassMixer[];
+  alias?: ClassDefinitionAlias<T>
 }
 
 /**
- * ComponentConfigHookProps and Typescript.
- */
+ *   
 export interface ClassComposerOptions<P extends CustomAttributes, A extends HTMLAttributes<any>> {
   config: ComposerConfig<P, A>,
   props: PropsWithChildren<P & A>
 }
-
+ */
 export interface ClassComposerReturns<A extends HTMLAttributes<any>> {
   className: string;
   forwardProps: PropsWithChildren<A>

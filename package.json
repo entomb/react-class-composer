@@ -14,7 +14,8 @@
     "test": "jest",
     "test:coverage": "jest --collectCoverage --verbose",
     "clean": "rimraf dist",
-    "build": "npm run clean && rollup -c"
+    "build": "npm run clean && rollup -c",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "react": "^17.0.0",
@@ -51,7 +52,7 @@
     "Component",
     "style",
     "classname",
-    "class",
+    "css class",
     "props",
     "utility classes"
   ],
