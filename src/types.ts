@@ -1,4 +1,4 @@
-import { AllHTMLAttributes, ForwardRefExoticComponent, HTMLAttributes, PropsWithoutRef, RefAttributes } from "react";
+import { AllHTMLAttributes, ForwardRefExoticComponent, HTMLAttributes, PropsWithoutRef, RefAttributes, PropsWithChildren } from "react";
 
 export type CustomAttributeValue = string | number | boolean
 export type CustomAttributes = Record<string, CustomAttributeValue>
@@ -33,12 +33,12 @@ export interface ComposerConfig<T extends CustomAttributes, A = {}> {
  */
 export interface ClassComposerOptions<P extends CustomAttributes, A extends HTMLAttributes<any>> {
   config: ComposerConfig<P, A>,
-  props: React.PropsWithChildren<P & A>
+  props: PropsWithChildren<P & A>
 }
 
 export interface ClassComposerReturns<A extends HTMLAttributes<any>> {
   className: string;
-  forwardProps: React.PropsWithChildren<A>
+  forwardProps: PropsWithChildren<A>
 }
 
 
