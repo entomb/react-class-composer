@@ -122,7 +122,7 @@ you can use functions to generate dynamic classnames. functions can return any v
       prop: {
         a: () => "some-class-name"
       },
-      anoterProp: (value) => `prop${value}`
+      anotherProp: (value) => `prop${value}`
   }
 ```
 
@@ -174,7 +174,7 @@ export const Button = createComponent<
   "button",
   {
     /**
-     * Base: base classes, will allways be applied
+     * Base: base classes, will always be applied
      */
     base: [
       "btn",
@@ -195,7 +195,7 @@ export const Button = createComponent<
         ["btn-base", { hover: "btn-hover" }, "hover:text-bold"]
       ),
 
-      // mix functions supprt wild card checks:
+      // mix functions support wild card checks:
       mixRemoveClass(["data-something.a"], ["btn-base"]),
 
       // you can run your own mix functions
@@ -231,7 +231,7 @@ export const Button = createComponent<
           ["text-medium", "font-something"],
         ],
 
-        // also suports () => string
+        // also supports () => string
         medium: () => `medium-stuff class-returned-by-function`,
 
         // any object key will be parsed as "prefixed" class name
