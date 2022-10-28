@@ -79,7 +79,8 @@ export const YourComponent: React.FC<Props> = (props) => {
 };
 ```
 
-# Full Example
+# Full Example 
+[view file](test/Example/Button.tsx)
 
 ```tsx
 import { ButtonHTMLAttributes } from "react";
@@ -194,8 +195,9 @@ export const Button = createComponent<
       $disabled: "btn-disabled",
       // use $$ as a prefix to apply classes if a prop is present, ignoring what value it has
       $$title: "btn-has-title",
+      
+       // we can also target data-attributes:
       "data-something": {
-        // we can also target data-attributes:
         a: "something-a",
         b: "something-b",
       },
