@@ -66,9 +66,11 @@ export interface ComposerConfig<
    */
   base: ClassDefinition;
   /**
-   * options are [key,value] pairs, where the key is the prop name.
-   * key can not be present in the native HTML element props
-   * to use a native prop, prefix it with `$` like `{ $disabled: 'btn-disabled' }`
+   * options are `[key,value]` pairs, where the key is the prop name.
+   * 
+   * - `key` should be present in the native HTML element props 
+   * - to use a native prop, prefix it with `$`
+   * - to check if a prop is present, prefix it with `$$`
    *
    * @type {ExcludeFromHTMLElement<ComposerConfigOptions<P>, ComponentProps<EL>>}
    */

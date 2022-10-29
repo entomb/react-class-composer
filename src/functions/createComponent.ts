@@ -21,7 +21,7 @@ export function createComponent<
   EL extends ExtendableElement = "div",
 >(
   el: EL,
-  config: ComposerConfig<P, ComponentProps<EL>>,
+  config: ComposerConfig<P, EL>,
   defaults: Partial<P> = {}
 ): ComposedComponent<P, EL> {
 
