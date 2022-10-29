@@ -17,7 +17,7 @@ there are definitely other libraries that achieve this, and if you are looking t
 
 ## How does it work?
 
-use `createComponent()` we can create and forward a native HTML component:
+use `createComponent()` to create and forward a native HTML component:
 
 ```ts
 import { HTMLAttributes } from "react";
