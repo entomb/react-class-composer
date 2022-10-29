@@ -2,6 +2,19 @@
 
 Simple tool to compose css classnames based on component props
 
+## Install
+
+```bash
+  $ npm install react-class-composer
+  $ yarn add react-class-composer
+```
+
+## Motivation
+
+**react-class-composer** was built as a tool for creating low level basic building block components for new design systems or UI libraries that use utility classes to style components (like tailwind).
+
+there are definitely other libraries that achieve this, and if you are looking to solve that problem and **react-class-composer** does not fit your needs, I encourage you to check them out: [useFancy](https://www.npmjs.com/package/use-fancy), [use-utility-classes](https://www.npmjs.com/package/use-utility-classes), [React With Class](https://www.npmjs.com/package/react-with-class)
+
 ## How does it work?
 
 use `createComponent()` we can create and forward a native HTML component:
@@ -88,7 +101,7 @@ export type ClassDefinition = string
 
 anytime you can define a class, you can use any combination of the following values:
 
-### `String`
+## `String`
 
 ```js
   options: {
@@ -99,7 +112,7 @@ anytime you can define a class, you can use any combination of the following val
   }
 ```
 
-### `Array`
+## `Array`
 
 any array of `@ClassDefinition` values will be flattened and parsed.
 
@@ -113,7 +126,7 @@ any array of `@ClassDefinition` values will be flattened and parsed.
   }
 ```
 
-### `Functions`
+## `Functions`
 
 you can use functions to generate dynamic classnames. functions can return any valid `@ClassDefinition` excluding function
 
@@ -126,7 +139,7 @@ you can use functions to generate dynamic classnames. functions can return any v
   }
 ```
 
-### `Objects`
+## `Objects`
 
 any object beyond the first level (used to parse prop values) will be exploded into prefixed classes like `key:value`. all keys need to be string, but the value can be any `@ClassDefinition`
 
@@ -280,8 +293,7 @@ export const Button = createComponent<ButtonProps, HTMLButtonElement, ButtonHTML
   },
   {
     // defaults, will apply classes as if <... variant="none">
-    variant: "none",  
-    
+    variant: "none",
   }
 );
 ```

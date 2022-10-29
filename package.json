@@ -41,6 +41,7 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.8.4"
   },
+  "homepage": "https://github.com/entomb/react-class-composer#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/entomb/react-class-composer.git"
@@ -58,6 +59,5 @@
   ],
   "bugs": {
     "url": "https://github.com/entomb/react-class-composer/issues"
-  },
-  "homepage": "https://github.com/entomb/react-class-composer#readme"
+  }
 }
