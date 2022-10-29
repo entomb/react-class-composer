@@ -11,7 +11,7 @@ Simple tool to compose css classnames based on component props
 
 ## Motivation
 
-**react-class-composer** was built as a tool for creating low level basic building block components for new design systems or UI libraries that use utility classes to style components (like tailwind).
+**react-class-composer** was built as a tool for creating low level basic building block components for new design systems or UI libraries that use utility-css frameworks to style components (like tailwind).
 
 there are definitely other libraries that achieve this, and if you are looking to solve that problem and **react-class-composer** does not fit your needs, I encourage you to check them out: [useFancy](https://www.npmjs.com/package/use-fancy), [use-utility-classes](https://www.npmjs.com/package/use-utility-classes), [React With Class](https://www.npmjs.com/package/react-with-class)
 
