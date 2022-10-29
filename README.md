@@ -15,14 +15,13 @@ Simple tool to compose css classnames based on component props
 
 there are definitely other libraries that achieve this, and if you are looking to solve that problem and **react-class-composer** does not fit your needs, I encourage you to check them out: [useFancy](https://www.npmjs.com/package/use-fancy), [use-utility-classes](https://www.npmjs.com/package/use-utility-classes), [React With Class](https://www.npmjs.com/package/react-with-class)
 
-____
+---
 
 ## How does it work?
 
 use `createComponent()` we can create and forward a native HTML component:
 
 ```ts
-import { HTMLAttributes } from "react";
 import { createComponent } from "react-class-composer";
 
 type BoxProps = {
@@ -157,22 +156,20 @@ any object beyond the first level (used to parse prop values) will be exploded i
 ```
 
 # Mixers
+
 [TODO]
 
 # `$` and `$$` Prefixes
+
 [TODO]
 
-
-____
-
-
+---
 
 # Full Example
 
 ([view Button.tsx](test/Example/Button.tsx)) ([view Tests](test/createComponent.test.tsx))
 
 ```tsx
-import { ButtonHTMLAttributes } from "react";
 import {
   createComponent,
   mixAddClass,
@@ -192,7 +189,7 @@ type ButtonProps = {
   v: ButtonProps["variant"];
 }>;
 
-export const Button = createComponent<ButtonProps, HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>> (
+export const Button = createComponent<ButtonProps, "button">("button", {
   "button",
   {
     /**

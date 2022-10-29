@@ -1,11 +1,10 @@
-import { HTMLAttributes } from 'react';
 import { createComponent } from '../../src/functions/createComponent';
 
 type BoxProps = {
   display?: 'flex' | 'block' | "inline";
 }
 
-export const Box = createComponent<BoxProps, HTMLDivElement, HTMLAttributes<HTMLDivElement>>("div", {
+export const Box = createComponent<BoxProps>("div", {
   base: "box-base",
   options: {
     display: {
@@ -14,4 +13,4 @@ export const Box = createComponent<BoxProps, HTMLDivElement, HTMLAttributes<HTML
       inline: 'display-inline',
     },
   },
-}) 
+})

@@ -1,5 +1,7 @@
-import { AllHTMLAttributes, ForwardRefExoticComponent, HTMLAttributes, PropsWithoutRef, RefAttributes, PropsWithChildren } from "react";
+import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes, PropsWithChildren, ComponentProps } from "react";
 
+
+export type ExtendableElement = keyof JSX.IntrinsicElements | React.ElementType | React.ComponentType<any>
 
 export type ComponentAttributes = Record<any, any>
 export type CustomAttributes = { [k: string]: CustomAttributeValue | undefined }
@@ -9,11 +11,11 @@ export type CustomAttributeValue = string | number | boolean
  * A Special type that does not allow on @S any key from @T
  *
  * @export
- * @typedef {ExcludeFromHTMLElement}
+ * @typedef {Exclude}
  * @template S
  * @template T
  */
-export type ExcludeFromHTMLElement<S, T> = S & { [K in keyof T]?: never }
+export type Exclude<S, T> = S & { [K in keyof T]?: never }
 
 
 /**
@@ -52,7 +54,10 @@ export type ClassMixer = {
 }
 
 
-export interface ComposerConfig<P extends ComponentAttributes, A = {}> {
+export interface ComposerConfig<
+  P extends ComponentAttributes,
+  EL extends ExtendableElement = "div"
+> {
   /**
    * base classes, will always be applied
    *
@@ -65,9 +70,9 @@ export interface ComposerConfig<P extends ComponentAttributes, A = {}> {
    * key can not be present in the native HTML element props
    * to use a native prop, prefix it with `$` like `{ $disabled: 'btn-disabled' }`
    *
-   * @type {ExcludeFromHTMLElement<ComposerConfigOptions<P>, A>}
+   * @type {ExcludeFromHTMLElement<ComposerConfigOptions<P>, ComponentProps<EL>>}
    */
-  options: ExcludeFromHTMLElement<ComposerConfigOptions<P>, A>;
+  options: Exclude<ComposerConfigOptions<P>, ComponentProps<EL>>;
   /**
    * A mixer is an object that looks like {when: [], run: () => {}} 
    * and runs the function when the props match what was defined in the in the array
@@ -78,7 +83,7 @@ export interface ComposerConfig<P extends ComponentAttributes, A = {}> {
    */
   mix?: ClassMixer[];
   /**
-   * a simple {key: value} object, where value mult be a key of {options}
+   * a simple {key: value} object, where value must be a key of {options}
    *
    * @type {?OptionAlias<P>}
    */
@@ -92,9 +97,11 @@ export interface ComposerConfig<P extends ComponentAttributes, A = {}> {
  * @export
  * @interface ClassComposerReturns
  * @typedef {ClassComposerReturns}
- * @template A extends HTMLAttributes<any>
+ * @template E extends ExtendableElement
  */
-export interface ClassComposerReturns<A extends HTMLAttributes<any>> {
+export interface ClassComposerReturns<
+  EL extends ExtendableElement
+> {
   /**
    * a string with css classnames 
    */
@@ -102,9 +109,9 @@ export interface ClassComposerReturns<A extends HTMLAttributes<any>> {
   /**
    * Contains any prop that is native to the HTML Element being forwarded
    * 
-   * @type {PropsWithChildren<A>}
+   * @type {PropsWithChildren<ComponentProps<EL>>}
    */
-  forwardProps: PropsWithChildren<A>
+  forwardProps: PropsWithChildren<ComponentProps<EL>>
 }
 
 
@@ -114,11 +121,22 @@ export interface ClassComposerReturns<A extends HTMLAttributes<any>> {
  * @export
  * @typedef {ComposedComponent}
  * @template P extends CustomAttributes
- * @template EL extends HTMLElement
- * @template A extends HTMLAttributes<EL> = AllHTMLAttributes<EL>
+ * @template EL extends ExtendableElement
  */
 export type ComposedComponent<
   P extends CustomAttributes,
-  EL extends HTMLElement,
-  A extends HTMLAttributes<EL> = AllHTMLAttributes<EL>
-> = ForwardRefExoticComponent<PropsWithoutRef<P & A> & RefAttributes<EL>>
+  EL extends ExtendableElement
+> = ForwardRefExoticComponent<PropsWithoutRef<CombinedProps<P, EL>> & RefAttributes<EL>>
+
+/**
+ * Combines Props P with Component Pros from element EL
+ *
+ * @export
+ * @typedef {CombinedProps}
+ * @template P extends CustomAttributes
+ * @template EL extends ExtendableElement
+ */
+export type CombinedProps<
+  P extends CustomAttributes,
+  EL extends ExtendableElement
+> = P & ComponentProps<EL>

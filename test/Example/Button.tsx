@@ -1,4 +1,3 @@
-import { ButtonHTMLAttributes } from 'react';
 import { createComponent } from '../../src/functions/createComponent';
 import { mixAddClass, mixFunction, mixRemoveClass } from '../../src/functions/mixFunctions';
 
@@ -13,7 +12,7 @@ type ButtonProps = {
   v: ButtonProps["variant"],
 }>
 
-export const Button = createComponent<ButtonProps, HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>>("button", {
+export const Button = createComponent<ButtonProps, "button">("button", {
   base: [
     "btn",
     { hover: ['btn-hover', 'text-bold'] },

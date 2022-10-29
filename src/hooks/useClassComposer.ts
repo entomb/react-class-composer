@@ -1,7 +1,7 @@
-import { HTMLAttributes, PropsWithChildren, useMemo } from "react";
+import { ComponentProps, useMemo } from "react";
 import { shouldMix } from "../functions/mixFunctions";
 import { parseDefinition } from "../functions/parseDefinition";
-import { ClassComposerReturns, ComposerConfig, ComponentAttributes } from "../types";
+import { ClassComposerReturns, ComposerConfig, ComponentAttributes, ExtendableElement, CustomAttributeValue, CombinedProps } from "../types";
 
 
 /** 
@@ -10,29 +10,31 @@ import { ClassComposerReturns, ComposerConfig, ComponentAttributes } from "../ty
  *
  * @export
  * @template P extends ComponentAttributes
- * @template A extends HTMLAttributes<any> = HTMLAttributes<any>
- * @param {ComposerConfig<P, A>} config the configuration object
- * @param {(P & A)} props the props to parse
+ * @template EL extends ExtendableElement = "div"
+ * @param {ComposerConfig<P, EL>} config the configuration object
+ * @param {CombinedProps<P, EL>} props the props to parse
  * @returns {ClassComposerReturns<A>} { className, forwardProps }
  */
-
 export function useClassComposer<
   P extends ComponentAttributes,
-  A extends HTMLAttributes<any> = HTMLAttributes<any>
->(config: ComposerConfig<P, A>, props: P & A): ClassComposerReturns<A> {
+  EL extends ExtendableElement = "div"
+>(
+  config: ComposerConfig<P, EL>,
+  props: CombinedProps<P, EL>
+): ClassComposerReturns<EL> {
   return useMemo(() => {
     // useMemo does nothing here, this should be an external hook with memoized return values
     const propOptions: string[] = []
     const propCss = new Set<string>();
     const optionEntries = Object.entries(config.options)
     const optionAlias = Object.entries(config.alias || [])
-    const forwardProps = {} as unknown as PropsWithChildren<A>
+    const forwardProps = {} as unknown as ComponentProps<EL>
 
     // load base
     parseDefinition(true, config.base).forEach(s => propCss.add(s))
 
     // load props
-    for (const [key, propValue] of Object.entries(props)) {
+    for (const [key, propValue] of Object.entries<CustomAttributeValue>(props)) {
       const entry = optionEntries
         .find(([k]) => {
           return k === key
@@ -69,7 +71,7 @@ export function useClassComposer<
     }
 
     if (props.className) {
-      props.className.split(" ").forEach(s => propCss.add(s))
+      props.className.split(" ").forEach((s: string) => propCss.add(s))
     }
 
     // merge with overwrite classname
