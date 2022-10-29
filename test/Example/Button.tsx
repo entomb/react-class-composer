@@ -24,7 +24,8 @@ export const Button = createComponent<ButtonProps, HTMLButtonElement, ButtonHTML
     mixRemoveClass(['size.tiny', 'variant.filled'], ['btn-base', { hover: 'btn-hover' }, 'hover:text-bold']),
     mixRemoveClass(['data-something.a'], ['btn-base']),
     mixFunction(['anotherOption.*', 'disabled.true'], (css) => css.add("any-anotherOptions-disabled-true")),
-    { when: ['type.reset'], run: (css) => css.add("btn-reset") }
+    { when: ['type.reset'], run: (css) => css.add("btn-reset") },
+    { when: ['formNoValidate.true'], run: (css) => css.add("form-no-validate") }
   ],
   alias: {
     v: "variant", // v="outline" is interpreted as variant="outline"

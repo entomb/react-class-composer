@@ -1,7 +1,7 @@
-import { CustomAttributeValue, ClassDefinitionObject } from "../types";
+import { CustomAttributeValue, ClassDefinition } from "../types";
 
 
-export function parseDefinition(propValue: CustomAttributeValue, propDefinition: ClassDefinitionObject, prefix: string = ""): string[] {
+export function parseDefinition(propValue: CustomAttributeValue, propDefinition: ClassDefinition, prefix: string = ""): string[] {
   if (typeof propDefinition === 'string') { // prop: string
     if (propValue === true) {
       return propDefinition.split(" ").map(s => prefix + s) // split string into multiple parts because we always return array of single classes

@@ -1,4 +1,4 @@
-import { ClassDefinitionObject, ClassMixerFactory, ClassMixerFn } from "../types"
+import { ClassDefinition, ClassMixerFactory, ClassMixerFn } from "../types"
 import { parseDefinition } from "./parseDefinition"
 
 
@@ -18,7 +18,7 @@ export const shouldMix = (when: string[], optionArr: string[]): boolean => {
 
 export const mixFunction: ClassMixerFactory<ClassMixerFn> = (when, run) => ({ when, run })
 
-export const mixAddClass: ClassMixerFactory<ClassDefinitionObject> = (when, arg) => {
+export const mixAddClass: ClassMixerFactory<ClassDefinition> = (when, arg) => {
   return {
     when,
     run: (css) => {
@@ -28,7 +28,7 @@ export const mixAddClass: ClassMixerFactory<ClassDefinitionObject> = (when, arg)
   }
 }
 
-export const mixRemoveClass: ClassMixerFactory<ClassDefinitionObject> = (when, arg) => {
+export const mixRemoveClass: ClassMixerFactory<ClassDefinition> = (when, arg) => {
   return {
     when,
     run: (css) => {

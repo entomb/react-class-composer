@@ -1,8 +1,20 @@
-import { HTMLAttributes, useMemo } from "react";
+import { HTMLAttributes, PropsWithChildren, useMemo } from "react";
 import { shouldMix } from "../functions/mixFunctions";
 import { parseDefinition } from "../functions/parseDefinition";
 import { ClassComposerReturns, ComposerConfig, ComponentAttributes } from "../types";
 
+
+/** 
+ * Hook that parses a set of parameters based on a configuration object and returns applicable classnames
+ *
+ *
+ * @export
+ * @template P extends ComponentAttributes
+ * @template A extends HTMLAttributes<any> = HTMLAttributes<any>
+ * @param {ComposerConfig<P, A>} config the configuration object
+ * @param {(P & A)} props the props to parse
+ * @returns {ClassComposerReturns<A>} { className, forwardProps }
+ */
 
 export function useClassComposer<
   P extends ComponentAttributes,
@@ -14,7 +26,7 @@ export function useClassComposer<
     const propCss = new Set<string>();
     const optionEntries = Object.entries(config.options)
     const optionAlias = Object.entries(config.alias || [])
-    const forwardProps = {} as A
+    const forwardProps = {} as unknown as PropsWithChildren<A>
 
     // load base
     parseDefinition(true, config.base).forEach(s => propCss.add(s))
@@ -29,8 +41,6 @@ export function useClassComposer<
             || optionAlias.find(([alias, target]) => alias === key && target === k)
         }) // find key or alias
 
-
-
       if (entry) {
         const [entryKey, entryValue] = entry;
         if (propValue && entryValue) {
@@ -38,9 +48,6 @@ export function useClassComposer<
             entryKey.startsWith("$$") ? true : propValue,
             entryValue
           ).forEach(s => propCss.add(s))
-          propOptions.push(`${key}.${propValue}`)
-        } else if (propValue === true) {
-          // consider option turned on even if it doesn't result in new classes being added
           propOptions.push(`${key}.${propValue}`)
         }
 
@@ -50,6 +57,7 @@ export function useClassComposer<
 
       } else {
         // save prop to forward
+        propOptions.push(`${key}.${propValue}`)
         Object.assign(forwardProps, { [key]: propValue })
       }
     }

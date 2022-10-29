@@ -54,7 +54,7 @@ interface Props {
 }
 
 export const YourComponent: React.FC<Props> = (props) => {
-  const { className } = useClassComposer<Pick<Props, "size">>(
+  const { className } = useClassComposer<Props>(
     {
       base: "base-class",
       options: {
@@ -81,9 +81,9 @@ export const YourComponent: React.FC<Props> = (props) => {
 
 ```ts
 export type ClassDefinition = string
-| (value) => ClassDefinition
-| { [pseudo: string]: ClassDefinition }
 | ClassDefinition[];
+| ((value) => ClassDefinition)
+| { [key: string]: ClassDefinition }
 ```
 
 anytime you can define a class, you can use any combination of the following values:
@@ -166,11 +166,7 @@ type ButtonProps = {
   v: ButtonProps["variant"];
 }>;
 
-export const Button = createComponent<
-  ButtonProps,
-  HTMLButtonElement,
-  ButtonHTMLAttributes<HTMLButtonElement>
->(
+export const Button = createComponent<ButtonProps, HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement>> (
   "button",
   {
     /**
@@ -205,6 +201,11 @@ export const Button = createComponent<
 
       // or simply just pass in a mix object.
       { when: ["type.reset"], run: (css) => css.add("btn-reset") },
+      // you can match any prop, even if its a native HTML element one
+      {
+        when: ["formNoValidate.true"],
+        run: (css) => css.add("form-no-validate"),
+      },
     ],
 
     /**
@@ -278,7 +279,9 @@ export const Button = createComponent<
     },
   },
   {
-    variant: "none",
+    // defaults, will apply classes as if <... variant="none">
+    variant: "none",  
+    
   }
 );
 ```

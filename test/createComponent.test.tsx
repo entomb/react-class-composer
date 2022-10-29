@@ -45,13 +45,14 @@ describe("createComponent", () => {
 
   it("should forward any native prop", () => {
     const target = TestRenderer.create(
-      <Button size='tiny' title="something" disabled={true} type="submit" autoFocus={true} onClick={() => alert(1)}>text</Button>
+      <Button size='tiny' title="something" disabled={true} type="submit" autoFocus={true} formNoValidate onClick={() => alert(1)}>text</Button>
     );
     expect(target).toMatchInlineSnapshot(`
 <button
   autoFocus={true}
-  className="btn hover:btn-hover hover:text-bold btn-base padding-tiny margin-tiny btn-has-title btn-disabled btn-submit"
+  className="btn hover:btn-hover hover:text-bold btn-base padding-tiny margin-tiny btn-has-title btn-disabled btn-submit form-no-validate"
   disabled={true}
+  formNoValidate={true}
   onClick={[Function]}
   title="something"
   type="submit"
