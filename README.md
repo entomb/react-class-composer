@@ -56,7 +56,12 @@ export const Box = createComponent<BoxProps>("div", {
 <div className="box-base display-block"></div>
 ```
 
-### alternatively you can use `useClassComposer()` Hook
+# Hooks
+
+## `useClassComposer()` Hook
+
+this hook acts like the `createComponent` function, but lets you deal with all the component outer shell.
+it returns a classname based on a config file, and requires a `config` and `props` object.
 
 ```tsx
 import React from "react";
@@ -88,6 +93,29 @@ export const YourComponent: React.FC<Props> = (props) => {
       {props.something}
     </div>
   );
+};
+```
+
+## `useClassname()` Hook
+
+this hooks just compiles the `@ClassDefinition` object into memoized string of classnames. its kind of like [`clsx()`](https://www.npmjs.com/package/clsx). it takes a `config` object and optionally a `React.DependencyList` array.
+
+```tsx
+import React from "react";
+import { useClassname } from "react-class-composer";
+
+const ComponentWithClass: React.FC = ({ props }) => {
+  const className = useClassname(
+    [
+      "btn",
+      "btn-something",
+      { hover: "btn-hover" },
+      () => (props.something ? "btn-something" : "btn-not"),
+    ],
+    props
+  );
+
+  return <button className={className}>click me!</button>;
 };
 ```
 
