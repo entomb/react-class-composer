@@ -3,29 +3,27 @@ import { CustomAttributeValue, ClassDefinition } from "../types";
 
 export function parseDefinition(propValue: CustomAttributeValue, propDefinition: ClassDefinition, prefix: string = ""): string[] {
   if (typeof propDefinition === 'string') { // prop: string
-    if (propValue === true) {
-      return propDefinition.trim().split(" ").map(s => prefix + s) // split string into multiple parts because we always return array of single classes
+    if (propValue === true && propDefinition) {
+      return propDefinition.split(/\s+/).map(s => prefix + s.trim()) // split string into multiple parts because we always return array of single classes
     }
   } else if (propDefinition instanceof Array) { //  prop: string[]
     if (propValue === true) {
-      return propDefinition.map(d => parseDefinition(true, d, prefix)).flat()
+      return propDefinition.flatMap(d => parseDefinition(true, d, prefix))
     }
   } else if (typeof propDefinition === 'function') {
 
     return parseDefinition(true, propDefinition(propValue), prefix)
-
-  } else if (propDefinition.toString() === "[object Object]") {//  prop: {key: value?}
+  } else if (typeof propDefinition === 'object') {//  prop: {key: value?}  // propDefinition.toString() === "[object Object]" 
 
     // test if propValue exists in propDefinition
-    const maybeObj = propDefinition?.[("" + propValue)]
-    if (maybeObj) {
-      return parseDefinition(true, maybeObj, prefix)
+    if (propDefinition.hasOwnProperty("" + propValue)) {
+      return parseDefinition(true, propDefinition[("" + propValue)], prefix)
     }
 
     // prop: {pseudo: value}
-    return Object.keys(propDefinition).map(key => {
+    return Object.keys(propDefinition).flatMap(key => {
       return parseDefinition(propValue, propDefinition[key], prefix + `${key}:`)
-    }).flat()
+    })
   }
 
   return []
