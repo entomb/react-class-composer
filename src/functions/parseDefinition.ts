@@ -4,7 +4,7 @@ import { CustomAttributeValue, ClassDefinition } from "../types";
 export function parseDefinition(propValue: CustomAttributeValue, propDefinition: ClassDefinition, prefix: string = ""): string[] {
   if (typeof propDefinition === 'string') { // prop: string
     if (propValue === true) {
-      return propDefinition.split(" ").map(s => prefix + s) // split string into multiple parts because we always return array of single classes
+      return propDefinition.trim().split(" ").map(s => prefix + s) // split string into multiple parts because we always return array of single classes
     }
   } else if (propDefinition instanceof Array) { //  prop: string[]
     if (propValue === true) {
