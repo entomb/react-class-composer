@@ -6,3 +6,4 @@ export * from './functions/parseDefinition'
 export * from './functions/mixFunctions'
 // Hooks
 export * from './hooks/useClassComposer'
+export * from './hooks/useClassname'
