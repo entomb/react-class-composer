@@ -41,6 +41,38 @@ describe("createComponent", () => {
 `)
   })
 
+  it("should support as=`` prop", () => {
+
+    const target = TestRenderer.create(<>
+      <Button as="div" title="hello" size='tiny'>text</Button>
+      <Button as="span" onClick={() => { }} size='tiny'>text</Button>
+      <Button as="p" color="red" size='tiny'>text</Button>
+    </>
+    );
+    expect(target).toMatchInlineSnapshot(`
+[
+  <div
+    className="btn hover:btn-hover hover:text-bold btn-base btn-has-title padding-tiny margin-tiny"
+    title="hello"
+  >
+    text
+  </div>,
+  <span
+    className="btn hover:btn-hover hover:text-bold btn-base padding-tiny margin-tiny"
+    onClick={[Function]}
+  >
+    text
+  </span>,
+  <p
+    className="btn hover:btn-hover hover:text-bold btn-base padding-tiny margin-tiny"
+    color="red"
+  >
+    text
+  </p>,
+]
+`)
+  })
+
 
 
   it("should forward any native prop", () => {

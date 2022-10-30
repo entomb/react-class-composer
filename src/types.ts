@@ -1,6 +1,6 @@
 import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes, PropsWithChildren, ComponentProps } from "react";
 
-
+export type AsProp = { as?: keyof JSX.IntrinsicElements }
 export type ExtendableElement = keyof JSX.IntrinsicElements | React.ElementType | React.ComponentType<any>
 
 export type ComponentAttributes = Record<any, any>
@@ -72,9 +72,9 @@ export interface ComposerConfig<
    * - to use a native prop, prefix it with `$`
    * - to check if a prop is present, prefix it with `$$`
    *
-   * @type {ExcludeFromHTMLElement<ComposerConfigOptions<P>, ComponentProps<EL>>}
+   * @type {ExcludeFromHTMLElement<ComposerConfigOptions<P>, ComponentProps<EL> & AsProp>}
    */
-  options: Exclude<ComposerConfigOptions<P>, ComponentProps<EL>>;
+  options: Exclude<ComposerConfigOptions<P>, ComponentProps<EL> & AsProp>;
   /**
    * A mixer is an object that looks like {when: [], run: () => {}} 
    * and runs the function when the props match what was defined in the in the array
@@ -128,17 +128,17 @@ export interface ClassComposerReturns<
 export type ComposedComponent<
   P extends CustomAttributes,
   EL extends ExtendableElement
-> = ForwardRefExoticComponent<PropsWithoutRef<CombinedProps<P, EL>> & RefAttributes<EL>>
+> = ForwardRefExoticComponent<PropsWithoutRef<ComposedComponentProps<P, EL>> & RefAttributes<EL>>
 
 /**
- * Combines Props P with Component Pros from element EL
+ * Combines Props P with Component Pros from element EL and the {as?: ""} prop
  *
  * @export
- * @typedef {CombinedProps}
+ * @typedef {ComposedComponentProps}
  * @template P extends CustomAttributes
  * @template EL extends ExtendableElement
  */
-export type CombinedProps<
+export type ComposedComponentProps<
   P extends CustomAttributes,
   EL extends ExtendableElement
-> = P & ComponentProps<EL>
+> = P & AsProp & ComponentProps<EL>

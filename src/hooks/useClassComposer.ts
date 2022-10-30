@@ -1,7 +1,7 @@
 import { ComponentProps, useMemo } from "react";
 import { shouldMix } from "../functions/mixFunctions";
 import { parseDefinition } from "../functions/parseDefinition";
-import { ClassComposerReturns, ComposerConfig, ComponentAttributes, ExtendableElement, CustomAttributeValue, CombinedProps } from "../types";
+import { ClassComposerReturns, ComposerConfig, ComponentAttributes, ExtendableElement, CustomAttributeValue, ComposedComponentProps } from "../types";
 
 
 /** 
@@ -20,7 +20,7 @@ export function useClassComposer<
   EL extends ExtendableElement = "div"
 >(
   config: ComposerConfig<P, EL>,
-  props: CombinedProps<P, EL>
+  props: ComposedComponentProps<P, EL>
 ): ClassComposerReturns<EL> {
   return useMemo(() => {
     // useMemo does nothing here, this should be an external hook with memoized return values

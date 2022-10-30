@@ -1,6 +1,9 @@
-import { createElement, forwardRef, PropsWithChildren, ComponentProps } from "react"
+import { createElement, forwardRef } from "react"
 import { useClassComposer } from "../hooks/useClassComposer";
-import { CustomAttributes, ComposerConfig, ComposedComponent, ExtendableElement } from "../types"
+import { CustomAttributes, ComposerConfig, ComposedComponent, ComposedComponentProps, ExtendableElement, } from "../types"
+
+
+
 
 /** 
  * Create a React component that extends and creates a forwardRef of native HTML element. 
@@ -9,7 +12,7 @@ import { CustomAttributes, ComposerConfig, ComposedComponent, ExtendableElement 
  * @template P extends CustomAttributes
  * @template EL extends ExtendableElement
  * @param {EL} el defaults to "div"
- * @param {ComposerConfig<P, ComponentProps<EL>>} config
+ * @param {ComposerConfig<P, EL>} config
  * @param {Partial<P>} [defaults={}]
  * @returns {ComposedComponent<P, EL>}
  * 
@@ -25,9 +28,13 @@ export function createComponent<
   defaults: Partial<P> = {}
 ): ComposedComponent<P, EL> {
 
-  return forwardRef<typeof el, PropsWithChildren<P & ComponentProps<typeof el>>>((innerProps, ref) => {
-    const { className, forwardProps } = useClassComposer<P, typeof el>(config, { ...defaults, ...innerProps });
+  return forwardRef<typeof el, ComposedComponentProps<P, EL>>((innerProps, ref) => {
+    const ele: ExtendableElement = innerProps.as || el;
+    const props = { ...defaults, ...innerProps }
+    delete props.as;
+    const { className, forwardProps } = useClassComposer<ComposedComponentProps<P, EL>, typeof el>(config, props);
 
-    return createElement(el, { ref, ...forwardProps, className }, innerProps.children)
+    return createElement(ele, { ref, ...forwardProps, className }, innerProps.children)
   })
 }
+
