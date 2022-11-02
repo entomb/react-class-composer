@@ -1,6 +1,6 @@
 {
   "name": "react-class-composer",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Simple tool to compose css classnames based on component props",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
