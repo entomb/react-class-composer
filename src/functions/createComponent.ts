@@ -1,9 +1,12 @@
 import { createElement, forwardRef } from "react"
 import { useClassComposer } from "../hooks/useClassComposer";
-import { CustomAttributes, ComposerConfig, ComposedComponent, ComposedComponentProps, ExtendableElement, } from "../types"
-
-
-
+import {
+  CustomAttributes,
+  ComposerConfig,
+  ComposedComponent,
+  ComposedComponentProps,
+  ExtendableElement,
+} from "../types"
 
 /** 
  * Create a React component that extends and creates a forwardRef of native HTML element. 
@@ -27,14 +30,20 @@ export function createComponent<
   config: ComposerConfig<P, EL>,
   defaults: Partial<P> = {}
 ): ComposedComponent<P, EL> {
-
+  const useConfiguredClassComposer = configBinder<P, EL>(config)
   return forwardRef<typeof el, ComposedComponentProps<P, EL>>((innerProps, ref) => {
     const ele: ExtendableElement = innerProps.as || el;
     const props = { ...defaults, ...innerProps }
     delete props.as;
-    const { className, forwardProps } = useClassComposer<ComposedComponentProps<P, EL>, typeof el>(config, props);
+    const { className, forwardProps } = useConfiguredClassComposer(props);
 
     return createElement(ele, { ref, ...forwardProps, className }, innerProps.children)
   })
 }
 
+function configBinder<
+  P extends CustomAttributes,
+  EL extends ExtendableElement = "div",
+>(config: ComposerConfig<P, EL>) {
+  return (props: ComposedComponentProps<P, EL>) => useClassComposer.call(null, config, props)
+}
