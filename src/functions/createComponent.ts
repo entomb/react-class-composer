@@ -45,5 +45,5 @@ function configBinder<
   P extends CustomAttributes,
   EL extends ExtendableElement = "div",
 >(config: ComposerConfig<P, EL>) {
-  return (props: ComposedComponentProps<P, EL>) => useClassComposer.call(null, config, props)
+  return (props: ComposedComponentProps<P, EL>) => useClassComposer(config, props)
 }
