@@ -10,6 +10,7 @@ tmp
 coverage
 *.lcov
 .nyc_output
+bench
 
 # Optional 
 .eslintcache
