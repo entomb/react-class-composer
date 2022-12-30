@@ -1,5 +1,4 @@
-import { shouldMix } from '../src/functions/mixFunctions';
-
+import { shouldMix } from "../src/functions/mixFunctions";
 
 const propArray: string[] = [
   "prop.value",
@@ -9,41 +8,37 @@ const propArray: string[] = [
   "match.a",
   "match.b",
   "match.c",
-]
+];
 
-describe('shouldMix()', () => {
-
-
-  it('should exist', () => {
+describe("shouldMix()", () => {
+  it("should exist", () => {
     expect(shouldMix).not.toBe(undefined);
   });
 
-  describe('should return true', () => {
+  describe("should return true", () => {
     [
       [],
       ["prop.value"],
       ["prop.value", "another.prop"],
       ["prop.value", "another.prop", "third.prop"],
-      ["match.*", "another.*"]
+      ["match.*", "another.*"],
     ].forEach((target: string[]) => {
       it("when matching: " + JSON.stringify(target), () => {
-        expect(shouldMix(target, propArray)).toEqual(true)
-      })
-    })
+        expect(shouldMix(target, propArray)).toEqual(true);
+      });
+    });
 
     describe("when matching with * wildcard", () => {
       it("and found one", () => {
-        expect(shouldMix(["match.*"], propArray.slice(-2))).toEqual(true)
-      })
+        expect(shouldMix(["match.*"], propArray.slice(-2))).toEqual(true);
+      });
       it("and found all", () => {
-        expect(shouldMix(["match.*"], propArray)).toEqual(true)
-      })
-    })
+        expect(shouldMix(["match.*"], propArray)).toEqual(true);
+      });
+    });
+  });
 
-  })
-
-
-  describe('should return false', () => {
+  describe("should return false", () => {
     [
       [true],
       [false],
@@ -58,10 +53,8 @@ describe('shouldMix()', () => {
       ["missing.*", "match.*", "prop.value"],
     ].forEach((target: any[]) => {
       it("when matching: " + JSON.stringify(target), () => {
-        expect(shouldMix(target, propArray)).toEqual(false)
-      })
-    })
-  })
-
+        expect(shouldMix(target, propArray)).toEqual(false);
+      });
+    });
+  });
 });
-

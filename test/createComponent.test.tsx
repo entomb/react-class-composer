@@ -1,19 +1,18 @@
-import React from 'react';
-import TestRenderer from 'react-test-renderer';
-import { Button } from './Example/Button'
-import { Box } from './Example/Box'
-
+import React from "react";
+import TestRenderer from "react-test-renderer";
+import { Button } from "./Example/Button";
+import { Box } from "./Example/Box";
 
 describe("createComponent", () => {
-
   it("should parse any kind of option", () => {
-    expect(Button).not.toBeUndefined()
-    const target = TestRenderer.create(<>
-      <Button size='tiny'>text</Button>
-      <Button size='small'>text</Button>
-      <Button size='medium'>text</Button>
-      <Button size='large'>text</Button>
-    </>
+    expect(Button).not.toBeUndefined();
+    const target = TestRenderer.create(
+      <>
+        <Button size="tiny">text</Button>
+        <Button size="small">text</Button>
+        <Button size="medium">text</Button>
+        <Button size="large">text</Button>
+      </>
     );
     expect(target).toMatchInlineSnapshot(`
 [
@@ -38,16 +37,22 @@ describe("createComponent", () => {
     text
   </button>,
 ]
-`)
-  })
+`);
+  });
 
   it("should support as=`` prop", () => {
-
-    const target = TestRenderer.create(<>
-      <Button as="div" title="hello" size='tiny'>text</Button>
-      <Button as="span" onClick={() => { }} size='tiny'>text</Button>
-      <Button as="p" color="red" size='tiny'>text</Button>
-    </>
+    const target = TestRenderer.create(
+      <>
+        <Button as="div" title="hello" size="tiny">
+          text
+        </Button>
+        <Button as="span" onClick={() => {}} size="tiny">
+          text
+        </Button>
+        <Button as="p" color="red" size="tiny">
+          text
+        </Button>
+      </>
     );
     expect(target).toMatchInlineSnapshot(`
 [
@@ -70,14 +75,22 @@ describe("createComponent", () => {
     text
   </p>,
 ]
-`)
-  })
-
-
+`);
+  });
 
   it("should forward any native prop", () => {
     const target = TestRenderer.create(
-      <Button size='tiny' title="something" disabled={true} type="submit" autoFocus={true} formNoValidate onClick={() => alert(1)}>text</Button>
+      <Button
+        size="tiny"
+        title="something"
+        disabled={true}
+        type="submit"
+        autoFocus={true}
+        formNoValidate
+        onClick={() => alert(1)}
+      >
+        text
+      </Button>
     );
     expect(target).toMatchInlineSnapshot(`
 <button
@@ -91,13 +104,14 @@ describe("createComponent", () => {
 >
   text
 </button>
-`)
-  })
-
+`);
+  });
 
   it("should apply variants and addClass mixers", () => {
     const target = TestRenderer.create(
-      <Button size='tiny' variant="outline" type="reset">text</Button>
+      <Button size="tiny" variant="outline" type="reset">
+        text
+      </Button>
     );
     expect(target).toMatchInlineSnapshot(`
 <button
@@ -106,12 +120,14 @@ describe("createComponent", () => {
 >
   text
 </button>
-`)
-  })
+`);
+  });
 
   it("should apply variants and removeClass mixers", () => {
     const target = TestRenderer.create(
-      <Button size='tiny' variant="filled" type="button">text</Button>
+      <Button size="tiny" variant="filled" type="button">
+        text
+      </Button>
     );
     expect(target).toMatchInlineSnapshot(`
 <button
@@ -120,12 +136,14 @@ describe("createComponent", () => {
 >
   text
 </button>
-`)
-  })
+`);
+  });
 
   it("should forward more classnames without repeating", () => {
     const target = TestRenderer.create(
-      <Button size='tiny' className='btn another-class more-classes'>text</Button>
+      <Button size="tiny" className="btn another-class more-classes">
+        text
+      </Button>
     );
     expect(target).toMatchInlineSnapshot(`
 <button
@@ -133,13 +151,14 @@ describe("createComponent", () => {
 >
   text
 </button>
-`)
-  })
-
+`);
+  });
 
   it("should word with alias", () => {
     const target = TestRenderer.create(
-      <Button size='tiny' v="outline" round>text</Button>
+      <Button size="tiny" v="outline" round>
+        text
+      </Button>
     );
     expect(target).toMatchInlineSnapshot(`
 <button
@@ -148,14 +167,18 @@ describe("createComponent", () => {
   text
 </button>
 `);
-  })
-
+  });
 
   it("should mix with multiple options", () => {
-    const target = TestRenderer.create(<>
-      <Button size='medium' anotherOption="on" disabled>text</Button>
-      <Button size='medium' anotherOption="off" disabled>text</Button>
-    </>
+    const target = TestRenderer.create(
+      <>
+        <Button size="medium" anotherOption="on" disabled>
+          text
+        </Button>
+        <Button size="medium" anotherOption="off" disabled>
+          text
+        </Button>
+      </>
     );
     expect(target).toMatchInlineSnapshot(`
 [
@@ -173,13 +196,18 @@ describe("createComponent", () => {
   </button>,
 ]
 `);
-  })
+  });
 
   it("should react to data attribute values", () => {
-    const target = TestRenderer.create(<>
-      <Button size='medium' data-something="a">text</Button>
-      <Button size='medium' data-something="b">text</Button>
-    </>
+    const target = TestRenderer.create(
+      <>
+        <Button size="medium" data-something="a">
+          text
+        </Button>
+        <Button size="medium" data-something="b">
+          text
+        </Button>
+      </>
     );
     expect(target).toMatchInlineSnapshot(`
 [
@@ -195,14 +223,21 @@ describe("createComponent", () => {
   </button>,
 ]
 `);
-  })
+  });
 
   it("should work with dynamic values", () => {
-    const target = TestRenderer.create(<>
-      <Button size='medium' dynamicOptions={1}>text</Button>
-      <Button size='medium' dynamicOptions={99}>text</Button>
-      <Button size='medium' dynamicOptions={50}>text</Button>
-    </>
+    const target = TestRenderer.create(
+      <>
+        <Button size="medium" dynamicOptions={1}>
+          text
+        </Button>
+        <Button size="medium" dynamicOptions={99}>
+          text
+        </Button>
+        <Button size="medium" dynamicOptions={50}>
+          text
+        </Button>
+      </>
     );
     expect(target).toMatchInlineSnapshot(`
 [
@@ -223,14 +258,16 @@ describe("createComponent", () => {
   </button>,
 ]
 `);
-  })
+  });
 
   it("should parse simple component config", () => {
-    const target = TestRenderer.create(<Box>
-      <Box display='flex' />
-      <Box display='inline' />
-      <Box display='block' />
-    </Box>);
+    const target = TestRenderer.create(
+      <Box>
+        <Box display="flex" />
+        <Box display="inline" />
+        <Box display="block" />
+      </Box>
+    );
     expect(target).toMatchInlineSnapshot(`
 <div
   className="box-base"
@@ -246,6 +283,5 @@ describe("createComponent", () => {
   />
 </div>
 `);
-  })
-
-})
+  });
+});
