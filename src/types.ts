@@ -38,7 +38,8 @@ export type Exclude<S, T> = S & { [K in keyof T]?: never }
  * @export
  * @typedef {ClassDefinition}
  */
-export type ClassDefinition = string | ClassDefinitionFn | { [key: string]: ClassDefinition } | ClassDefinition[];
+type Falsy = undefined | null | false | 0 | ""
+export type ClassDefinition = Falsy | string | ClassDefinitionFn | { [key: string]: ClassDefinition } | ClassDefinition[];
 export type ClassDefinitionFn = ((value: CustomAttributeValue) => ClassDefinition)
 export type ComposerConfigOptions<T> = {
   [K in T as string]: ClassDefinition;
